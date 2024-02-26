@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td {
+            width: 100px;
+            height: 100px;
+            background: grey;
+            font-size: 80px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+        }
+        td:hover {
+            background: lightgray;
+        }
+    </style>
+</head>
+<body>
+    Vez: <b id="jogador">?</b>
+    <table id="tabuleiro">
+        <tr>
+            <td onclick="marcar(0)"></td>
+            <td onclick="marcar(1)"></td>
+            <td onclick="marcar(2)"></td>
+        </tr>
+        <tr>
+            <td onclick="marcar(3)"></td>
+            <td onclick="marcar(4)"></td>
+            <td onclick="marcar(5)"></td>
+        </tr>
+        <tr>
+            <td onclick="marcar(6)"></td>
+            <td onclick="marcar(7)"></td>
+            <td onclick="marcar(8)"></td>
+        </tr>
+    </table>
+    <button onclick="iniciar()">reiniciar</button>
+    <script>
+        let jogador
+        let tabuleiro
+
+        function marcar(indice) {
+            tabuleiro[indice] = jogador
+            trocarJogador()
+            renderizar()
+            verificarVitoria()
+        }
+
+        function trocarJogador() {
+            jogador = jogador == "X" ? "O" : "X"
+        }
+
+        function renderizar() {
+            // jogador na tela
+            const b = document.getElementById("jogador")
+            b.innerText = jogador
+
+            // tabuleiro na tela
+            const tds = document.querySelectorAll("#tabuleiro td")
+            for(let i = 0; i < tabuleiro.length; i++) {
+                tds[i].innerText = tabuleiro[i]
+            }
+        }
+
+        function verificarVitoria() {
+            if (tabuleiro[0] && tabuleiro[0] == tabuleiro[1] && tabuleiro[1] == tabuleiro[2]) {
+                alert("HOUVE VITORIA!")
+            }
+            if (tabuleiro[3] && tabuleiro[3] == tabuleiro[4] && tabuleiro[4] == tabuleiro[5]) {
+                alert("HOUVE VITORIA!")
+            }
+            if (tabuleiro[6] && tabuleiro[6] == tabuleiro[7] && tabuleiro[7] == tabuleiro[8]) {
+                alert("HOUVE VITORIA!")
+            }
+        }
+
+        function iniciar() {
+            jogador = "X"
+            tabuleiro = ["", "", "", "", "", "", "", "", ""]
+            renderizar()
+        }
+
+        iniciar()
+    </script>
+</body>
+</html>
